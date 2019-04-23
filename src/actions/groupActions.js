@@ -2,31 +2,40 @@ import axios from "axios";
 
 export const joinGroup = (groupId, userId) => {
   return dispatch => {
-    console.log('joinGroup action!', groupId, userId)
+    console.log("joinGroup action!", groupId, userId);
     axios
-      .put("https://map-share-api.herokuapp.com/api/users/" + userId, {
+      .put("https://map-share-dev-api.herokuapp.com/api/users/" + userId, {
         addGroup: groupId
       })
       .then(res => {
-        dispatch(addGroupToUser(res.data.userGroups[res.data.userGroups.length - 1]))
+        dispatch(
+          addGroupToUser(res.data.userGroups[res.data.userGroups.length - 1])
+        );
       })
       .catch(err => {
-        dispatch(joinGroupError(err.response.data.error.message || err.response.data.error))
+        dispatch(
+          joinGroupError(
+            err.response.data.error.message || err.response.data.error
+          )
+        );
       });
   };
 };
 
 export const createGroup = (groupName, userId) => {
   return dispatch => {
-    console.log('createGroup action!', userId)
+    console.log("createGroup action!", userId);
     axios
-      .post("https://map-share-api.herokuapp.com/api/groups", {userId, groupName})
-      .then(res => {
-        dispatch(addGroupToUser(res.data._id))
+      .post("https://map-share-dev-api.herokuapp.com/api/groups", {
+        userId,
+        groupName
       })
-      .catch(err => console.log(err.response))
+      .then(res => {
+        dispatch(addGroupToUser(res.data._id));
+      })
+      .catch(err => console.log(err.response));
     // axios
-    //   .post("https://map-share-api.herokuapp.com/api/groups", data)
+    //   .post("https://map-share-dev-api.herokuapp.com/api/groups", data)
     //   .then(res => {
     //     console.log(res.data);
     //     let reviewData = {
@@ -52,12 +61,12 @@ export const addGroupToUser = data => {
   return {
     type: "ADD_GROUP",
     data
-  }
-}
+  };
+};
 
 export const joinGroupError = data => {
   return {
     type: "JOIN_GROUP_ERROR",
     data
-  }
-}
+  };
+};
