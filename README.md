@@ -1,3 +1,8 @@
+- Make PRs to develop
+- use https://map-share-dev-api.herokuapp.com for the API (for develop)
+- when merging `develop` into `master`, change API to https://map-share-api.herokuapp.com!
+
+-----------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
