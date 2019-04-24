@@ -1,15 +1,15 @@
 import axios from "axios";
-import { marksFetchDataSuccess } from "./marksActions"
+import { marksFetchDataSuccess } from "./marksActions";
 
 export const userLogout = () => {
   return dispatch => {
     dispatch(signInSuccess(false));
     dispatch(userFetchDataSuccess({}));
     dispatch(marksFetchDataSuccess([]));
-  }
-}
+  };
+};
 
-export const signInSuccess = (bool) => {
+export const signInSuccess = bool => {
   return {
     type: "SIGN_IN_SUCCESS",
     status: bool
@@ -29,7 +29,7 @@ export const postUser = data => {
 
   return dispatch => {
     axios
-      .post("https://map-share-api.herokuapp.com/api/users", userData)
+      .post("https://map-share-dev-api.herokuapp.com/api/users", userData)
       .then(res => {
         console.log("data after postUser request return: ", res.data);
         dispatch(userFetchDataSuccess(res.data));

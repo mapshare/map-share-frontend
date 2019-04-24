@@ -20,17 +20,17 @@ export class MapContainer extends Component {
   //   // }
 
   //   // this.props.getUserData(data)
-  //   this.props.marksFetchData("https://map-share-api.herokuapp.com/api/marks?");
+  //   this.props.marksFetchData("https://map-share-dev-api.herokuapp.com/api/marks?");
   // }
-
+  groupId = this.props.getUserData.userGroups[
+    this.props.getUserData.userGroups.length - 1
+  ];
   componentDidMount() {
-    let groupId = this.props.getUserData.userGroups[
-      this.props.getUserData.userGroups.length - 1
-    ];
-    console.log('fetch first time')
+    console.log("fetch first time");
     this.props.marksFetchData(
-      "https://map-share-api.herokuapp.com/api/marks?groupId=" + groupId
-    );    
+      "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" +
+        this.groupId
+    );
   }
   // componentDidUpdate(prevProps, prevState) {
   //   if (
@@ -42,14 +42,14 @@ export class MapContainer extends Component {
   //     ];
   //     console.log('fetch second time')
   //     this.props.marksFetchData(
-  //       "https://map-share-api.herokuapp.com/api/marks?groupId=" + groupId
+  //       "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" + groupId
   //     );
   //   }
   // }
 
   logout = () => {
     console.log("firing logout");
-    this.props.userLogout()
+    this.props.userLogout();
     //this.props.signInSuccess(false);
   };
 
@@ -59,38 +59,38 @@ export class MapContainer extends Component {
     return (
       <>
         {console.log("RENDERING MAPCOMPONENT")}
-          <CurrentLocation
-            centerAroundCurrentLocation
-            google={this.props.google}
-            userData={this.props.getUserData}
-          >
-            <div className="box-btn-GoogleLogOut">
-              <GoogleLogout
-                buttonText="Logout"
-                onLogoutSuccess={this.logout}
-                className="btn-GoogleLogOut"
-              />
+        <CurrentLocation
+          centerAroundCurrentLocation
+          google={this.props.google}
+          userData={this.props.getUserData}
+        >
+          <div className="box-btn-GoogleLogOut">
+            <GoogleLogout
+              buttonText="Logout"
+              onLogoutSuccess={this.logout}
+              className="btn-GoogleLogOut"
+            />
+            <div className="group-id">Group ID - {this.groupId}</div>
+          </div>
+
+          {toggleMarks.status ? (
+            <div className="detailsContainer container-fluid">
+              <RestaurantDetails />
             </div>
+          ) : (
+            <div className="slideOut" />
+          )}
 
-            {toggleMarks.status ? (
-              <div className="detailsContainer container-fluid">
-                <RestaurantDetails />
-              </div>
-            ) : (
-              <div className="slideOut" />
-            )}
-
-            <InfoWindow
-              marker={toggleMarks.activeMarker}
-              visible={toggleMarks.showingInfoWindow}
-              onClose={this.onClose}
-            >
-              <div>
-                <h4>{toggleMarks.selectedPlace}</h4>
-              </div>
-            </InfoWindow>
-          </CurrentLocation>
-        
+          <InfoWindow
+            marker={toggleMarks.activeMarker}
+            visible={toggleMarks.showingInfoWindow}
+            onClose={this.onClose}
+          >
+            <div>
+              <h4>{toggleMarks.selectedPlace}</h4>
+            </div>
+          </InfoWindow>
+        </CurrentLocation>
       </>
     );
   }

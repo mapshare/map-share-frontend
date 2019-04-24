@@ -3,7 +3,10 @@ import axios from "axios";
 export const restaurantFetchData = data => {
   return dispatch => {
     axios
-      .get("https://map-share-api.herokuapp.com/api/restaurants/" + data.locationId)
+      .get(
+        "https://map-share-dev-api.herokuapp.com/api/restaurants/" +
+          data.locationId
+      )
       .then(resRestaurant => {
         let restaurantDetails = {
           locationId: resRestaurant.data.locationId,
