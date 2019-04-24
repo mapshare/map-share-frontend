@@ -22,14 +22,14 @@ export class MapContainer extends Component {
   //   // this.props.getUserData(data)
   //   this.props.marksFetchData("https://map-share-dev-api.herokuapp.com/api/marks?");
   // }
-
+  groupId = this.props.getUserData.userGroups[
+    this.props.getUserData.userGroups.length - 1
+  ];
   componentDidMount() {
-    let groupId = this.props.getUserData.userGroups[
-      this.props.getUserData.userGroups.length - 1
-    ];
     console.log("fetch first time");
     this.props.marksFetchData(
-      "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" + groupId
+      "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" +
+        this.groupId
     );
   }
   // componentDidUpdate(prevProps, prevState) {
@@ -70,6 +70,7 @@ export class MapContainer extends Component {
               onLogoutSuccess={this.logout}
               className="btn-GoogleLogOut"
             />
+            <div className="group-id">Group ID - {this.groupId}</div>
           </div>
 
           {toggleMarks.status ? (
