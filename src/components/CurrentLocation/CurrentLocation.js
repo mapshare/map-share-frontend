@@ -1,6 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
+import classnames from "classnames";
+import PropTypes from "prop-types";
+
+import "./CurrentLocation.scss";
+
 import { addMarker, marksFetchData } from "../../actions/marksActions";
 import {
   restaurantFetchData,
@@ -18,7 +23,7 @@ const mapStyles = {
   }
 };
 
-export class CurrentLocation extends Component {
+export class CurrentLocation extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -38,7 +43,7 @@ export class CurrentLocation extends Component {
   }
 
   componentDidMount() {
-    console.log("currentlocation mounted");
+    console.log(this.map);
     if (this.props.centerAroundCurrentLocation) {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
@@ -56,24 +61,17 @@ export class CurrentLocation extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("current location updated:");
     if (prevProps.google !== this.props.google) {
-      console.log("CL1");
       this.loadMap();
     }
 
     if (prevState.currentLocation !== this.state.currentLocation) {
-      console.log("RECENTER MAP");
       this.recenterMap();
     }
 
     if (prevProps.marks !== this.props.marks) {
-      //this.props.addMarker(false)
-      //this.props.position.mark.setMap(null);
       this.loadMarker();
-      console.log("CL2");
     }
-    console.log("end of currentlocation update");
   }
 
   recenterMap() {
@@ -90,6 +88,7 @@ export class CurrentLocation extends Component {
   }
 
   loadMap() {
+    console.log(this.map);
     if (this.props && this.props.google) {
       // checks if google is available
       const { google } = this.props;
@@ -112,9 +111,8 @@ export class CurrentLocation extends Component {
       // maps.Map() is constructor that instantiates the map
       this.map = new maps.Map(node, mapConfig);
       let test = this.map;
-      console.log("calling load map");
+
       maps.event.addListener(test, "click", function(event) {
-        console.log("calling load map on click listener event");
         addMark(test, maps, event.latLng);
       });
 
@@ -172,10 +170,9 @@ export class CurrentLocation extends Component {
   };
 
   render() {
-    const style = Object.assign({}, mapStyles.map);
     return (
-      <div>
-        <div style={style} ref="map">
+      <div className={classnames("CurrentLocation", this.props.className)}>
+        <div className="loading-map" ref="map">
           Loading map...
         </div>
         <AddRestaurant position={this.state.newMarkPosition} />
@@ -206,6 +203,10 @@ const mapStateToProps = state => {
     markOnClick: state.marksToggleReducer,
     signInStatus: state.signInStatusReducer
   };
+};
+
+CurrentLocation.propTypes = {
+  className: PropTypes.string
 };
 
 CurrentLocation.defaultProps = {

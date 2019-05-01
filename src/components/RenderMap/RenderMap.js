@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import classnames from "classnames";
+import PropTypes from "prop-types";
 
 export class RenderMap extends Component {
   renderChildren() {
@@ -18,11 +20,15 @@ export class RenderMap extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classnames("RenderMap", this.props.className)}>
         {this.renderChildren()}
       </div>
-    )
+    );
   }
 }
+
+RenderMap.propTypes = {
+  className: PropTypes.string
+};
 
 export default RenderMap;
