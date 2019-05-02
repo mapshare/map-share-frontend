@@ -6,15 +6,18 @@ import mapboxgl from "mapbox-gl";
 import "./MapBoxContainer.scss";
 
 import { MAP_BOX_TOKEN } from "../../data/constants";
+import { MARKERS } from "../../data/markers";
 
 class MapBoxContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.map = null;
+    this.markerRefs = [];
   }
 
   componentDidMount() {
     this.initializeMap();
+    this.loadMarker();
   }
 
   componentDidUpdate(prevProps, prevState) {}
@@ -51,12 +54,45 @@ class MapBoxContainer extends React.PureComponent {
     }, 1);
   };
 
+  loadMarker = () => {
+    MARKERS.features.forEach((marker, index) => {
+      // create a HTML element for each feature
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(this.markerRefs[index])
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(this.map);
+    });
+  };
+
+  onClickMarker = marker => {
+    console.log("click: ", marker);
+  };
+
+  createMarkerElement = () => {
+    return (
+      <div
+        className="marker"
+        ref={r => (this.markerRefs = r)}
+        onClick={this.onClickMarker}
+      />
+    );
+  };
+
   render() {
     return (
       <div
         className={classnames("MapBoxContainer", this.props.className)}
         ref={r => (this.mapBoxContainer = r)}
-      />
+      >
+        {MARKERS.features.map((marker, index) => (
+          <div
+            className="marker"
+            ref={r => (this.markerRefs[index] = r)}
+            key={`marker-${index}`}
+            onClick={() => this.onClickMarker(marker)}
+          />
+        ))}
+      </div>
     );
   }
 }
