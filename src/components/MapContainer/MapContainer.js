@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
-import { compose } from "redux";
 
 import { marksFetchData } from "../../actions/marksActions";
 import { userLogout } from "../../actions/signInActions";
@@ -11,53 +12,31 @@ import "./MapContainer.scss";
 import MapBoxContainer from "../MapBoxContainer/MapBoxContainer";
 import RestaurantDetails from "../RestaurantComponents/RestaurantDetails";
 
-export class MapContainer extends Component {
-  // componentWillMount() {
-  //   // let data = {
-  //   //   userId: '5c7015b00b10a5189ccc07e2',
-  //   //   groupId: '5c7016010b10a5189ccc07e3'
-  //   // }
+class MapContainer extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.groupId = this.props.getUserData.userGroups[
+      this.props.getUserData.userGroups.length - 1
+    ];
+  }
 
-  //   // this.props.getUserData(data)
-  //   this.props.marksFetchData("https://map-share-dev-api.herokuapp.com/api/marks?");
-  // }
-  groupId = this.props.getUserData.userGroups[
-    this.props.getUserData.userGroups.length - 1
-  ];
   componentDidMount() {
-    console.log("fetch first time");
+    console.log(this.props);
     this.props.marksFetchData(
       "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" +
         this.groupId
     );
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (
-  //     prevProps.getUserData !== this.props.getUserData //&&
-  //     //this.props.signInStatus === true
-  //   ) {
-  //     let groupId = this.props.getUserData.userGroups[
-  //       this.props.getUserData.userGroups.length - 1
-  //     ];
-  //     console.log('fetch second time')
-  //     this.props.marksFetchData(
-  //       "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" + groupId
-  //     );
-  //   }
-  // }
 
   logout = () => {
-    console.log("firing logout");
     this.props.userLogout();
-    //this.props.signInSuccess(false);
   };
 
   render() {
-    const { toggleMarks, signInStatus } = this.props;
+    const { toggleMarks } = this.props;
 
     return (
-      <div className="MapContainer">
-        {console.log("RENDERING MAPCOMPONENT")}
+      <div className={classnames("MapBoxContainer", this.props.className)}>
         <MapBoxContainer />
         <div className="box-btn-GoogleLogOut">
           <GoogleLogout
@@ -80,18 +59,26 @@ export class MapContainer extends Component {
   }
 }
 
+MapContainer.propTypes = {
+  className: PropTypes.string,
+  toggleMarks: PropTypes.bool.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  marksFetchData: PropTypes.func.isRequired,
+  userLogout: PropTypes.func.isRequired
+};
+
+MapContainer.defaultProps = {};
+
 const mapDispatchToProps = dispatch => {
   return {
     marksFetchData: url => dispatch(marksFetchData(url)),
     userLogout: () => dispatch(userLogout())
-    //signInSuccess: bool => dispatch(signInSuccess(bool))
   };
 };
 
 const mapStateToProps = state => {
   return {
     toggleMarks: state.marksToggleReducer,
-    //signInStatus: state.signInStatusReducer,
     getUserData: state.userFetchReducer
   };
 };

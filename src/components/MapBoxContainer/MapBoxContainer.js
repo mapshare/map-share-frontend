@@ -6,16 +6,12 @@ import { connect } from "react-redux";
 
 import "./MapBoxContainer.scss";
 
-import { addMarker, marksFetchData } from "../../actions/marksActions";
-import {
-  restaurantFetchData,
-  toggleMarker
-} from "../../actions/restaurantActions";
+import { addMarker } from "../../actions/marksActions";
+import { restaurantFetchData } from "../../actions/restaurantActions";
 
 import AddRestaurant from "../RestaurantComponents/AddRestaurant";
 
 import { MAP_BOX_TOKEN } from "../../data/constants";
-import { MARKERS } from "../../data/markers";
 
 class MapBoxContainer extends React.PureComponent {
   constructor(props) {
@@ -123,9 +119,7 @@ class MapBoxContainer extends React.PureComponent {
 
 const mapDispatchToProps = dispatch => {
   return {
-    marksFetchData: url => dispatch(marksFetchData(url)),
     addMarker: bool => dispatch(addMarker(bool)),
-    toggleMarker: bool => dispatch(toggleMarker(bool)),
     restaurantFetchData: data => dispatch(restaurantFetchData(data))
   };
 };
