@@ -8,7 +8,9 @@ import LocationForm from "../Forms/LocationForm/LocationForm";
 
 export class RestaurantDetails extends Component {
   handleClose = e => {
+    e.stopPropagation();
     this.props.addMarker(false);
+
     //this.props.position.mark.setMap(null);
   };
 
@@ -45,7 +47,7 @@ export class RestaurantDetails extends Component {
       <div>
         <Modal
           show={addMark.showModal}
-          onHide={this.handleClose}
+          onClick={event => this.handleClose(event)}
           dialogClassName="dialog"
         >
           <Modal.Header closeButton>

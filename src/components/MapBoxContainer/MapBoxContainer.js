@@ -22,7 +22,7 @@ class MapBoxContainer extends React.PureComponent {
     super(props);
     this.map = null;
     this.markerRefs = [];
-    this.temp = null;
+    this.coordinates = null;
   }
 
   componentDidMount() {
@@ -54,7 +54,12 @@ class MapBoxContainer extends React.PureComponent {
     });
 
     // add onClick event into the map when its initialize
-    this.onClickMap();
+    this.map.on("click", data => {
+      this.coordinates = {
+        lat: data.lngLat.lat,
+        lng: data.lngLat.lng
+      };
+    });
   };
 
   getUserGeolocation = () => {
@@ -85,18 +90,14 @@ class MapBoxContainer extends React.PureComponent {
   };
 
   onClickMarker = (marker, e) => {
-    console.log("click: ", marker);
     e.stopPropagation();
+    console.log("click on marker");
+    this.props.restaurantFetchData(marker);
   };
 
   onClickMap = () => {
-    this.map.on("click", data => {
-      this.temp = {
-        lat: data.lngLat.lat,
-        lng: data.lngLat.lng
-      };
-      this.props.addMarker(true);
-    });
+    this.props.addMarker(true);
+    console.log("click on map");
   };
 
   render() {
@@ -104,8 +105,9 @@ class MapBoxContainer extends React.PureComponent {
       <div
         className={classnames("MapBoxContainer", this.props.className)}
         ref={r => (this.mapBoxContainer = r)}
+        onClick={this.onClickMap}
       >
-        <AddRestaurant position={this.temp} />
+        <AddRestaurant position={this.coordinates} />
         {this.props.marks.map((marker, index) => (
           <div
             className="marker"
