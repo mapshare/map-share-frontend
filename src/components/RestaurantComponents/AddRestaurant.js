@@ -7,9 +7,9 @@ import { addMarker, saveMark } from "../../actions/marksActions";
 import LocationForm from "../Forms/LocationForm/LocationForm";
 
 export class RestaurantDetails extends Component {
-  handleClose = () => {
+  handleClose = e => {
     this.props.addMarker(false);
-    this.props.position.mark.setMap(null);
+    //this.props.position.mark.setMap(null);
   };
 
   // handleSave = values => {

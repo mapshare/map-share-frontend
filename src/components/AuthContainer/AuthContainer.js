@@ -1,32 +1,36 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { GoogleApiWrapper, InfoWindow } from "google-maps-react";
+import classnames from "classnames";
+
+import "./AuthContainer.scss";
 
 import { signInSuccess } from "../../actions/signInActions";
 import SignInForm from "../SignInForm/SignInForm";
 import MapContainer from "../MapContainer/MapContainer";
-import GroupLanding from "../GroupLanding/GroupLanding"
+import GroupLanding from "../GroupLanding/GroupLanding";
 
-export class AuthContainer extends Component {
+class AuthContainer extends React.PureComponent {
   render() {
     const { signInStatus, getUserData } = this.props;
     return (
-      <>
-        {
-          signInStatus ?
-            (getUserData.userGroups) ? (
-              (getUserData.userGroups && getUserData.userGroups.length != 0) ? (
-                <MapContainer />
-              ) : (
-                <GroupLanding />
-              )) : (
-                <div>Loading User</div>
+      <div className={classnames("AuthContainer", this.props.className)}>
+        {signInStatus ? (
+          getUserData.userGroups ? (
+            getUserData.userGroups && getUserData.userGroups.length != 0 ? (
+              <MapContainer />
+            ) : (
+              <GroupLanding />
+            )
           ) : (
-            <SignInForm />
+            <div className="loading">Loading User</div>
           )
-        }
-      </>
+        ) : (
+          <SignInForm />
+        )}
+      </div>
     );
   }
 }
@@ -44,12 +48,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  GoogleApiWrapper({
-    apiKey: "AIzaSyCp4-ZdjyiJMktGIrh4KcBS7xUGPbis8gY"
-  })
+AuthContainer.propTypes = {
+  className: PropTypes.string
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(AuthContainer);

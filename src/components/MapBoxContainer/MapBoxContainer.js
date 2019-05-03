@@ -2,8 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import mapboxgl from "mapbox-gl";
+import { connect } from "react-redux";
 
 import "./MapBoxContainer.scss";
+
+import { addMarker, marksFetchData } from "../../actions/marksActions";
+import {
+  restaurantFetchData,
+  toggleMarker
+} from "../../actions/restaurantActions";
+
+import AddRestaurant from "../RestaurantComponents/AddRestaurant";
 
 import { MAP_BOX_TOKEN } from "../../data/constants";
 import { MARKERS } from "../../data/markers";
@@ -13,14 +22,21 @@ class MapBoxContainer extends React.PureComponent {
     super(props);
     this.map = null;
     this.markerRefs = [];
+    this.temp = null;
   }
 
   componentDidMount() {
     this.initializeMap();
     this.loadMarker();
+    this.getUserGeolocation();
   }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.marks !== this.props.marks) {
+      console.log("didupdate");
+      this.loadMarker();
+    }
+  }
 
   componentWillUnmount() {
     this.map.remove();
@@ -37,7 +53,8 @@ class MapBoxContainer extends React.PureComponent {
       attributionControl: false
     });
 
-    this.getUserGeolocation();
+    // add onClick event into the map when its initialize
+    this.onClickMap();
   };
 
   getUserGeolocation = () => {
@@ -55,27 +72,31 @@ class MapBoxContainer extends React.PureComponent {
   };
 
   loadMarker = () => {
-    MARKERS.features.forEach((marker, index) => {
-      // create a HTML element for each feature
-      // make a marker for each feature and add to the map
+    this.props.marks.forEach((marker, index) => {
+      let lngLat = [
+        marker.geometry.coordinates[1],
+        marker.geometry.coordinates[0]
+      ];
+
       new mapboxgl.Marker(this.markerRefs[index])
-        .setLngLat(marker.geometry.coordinates)
+        .setLngLat(lngLat)
         .addTo(this.map);
     });
   };
 
-  onClickMarker = marker => {
+  onClickMarker = (marker, e) => {
     console.log("click: ", marker);
+    e.stopPropagation();
   };
 
-  createMarkerElement = () => {
-    return (
-      <div
-        className="marker"
-        ref={r => (this.markerRefs = r)}
-        onClick={this.onClickMarker}
-      />
-    );
+  onClickMap = () => {
+    this.map.on("click", data => {
+      this.temp = {
+        lat: data.lngLat.lat,
+        lng: data.lngLat.lng
+      };
+      this.props.addMarker(true);
+    });
   };
 
   render() {
@@ -84,18 +105,37 @@ class MapBoxContainer extends React.PureComponent {
         className={classnames("MapBoxContainer", this.props.className)}
         ref={r => (this.mapBoxContainer = r)}
       >
-        {MARKERS.features.map((marker, index) => (
+        <AddRestaurant position={this.temp} />
+        {this.props.marks.map((marker, index) => (
           <div
             className="marker"
             ref={r => (this.markerRefs[index] = r)}
             key={`marker-${index}`}
-            onClick={() => this.onClickMarker(marker)}
+            onClick={e => this.onClickMarker(marker, e)}
           />
         ))}
       </div>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    marksFetchData: url => dispatch(marksFetchData(url)),
+    addMarker: bool => dispatch(addMarker(bool)),
+    toggleMarker: bool => dispatch(toggleMarker(bool)),
+    restaurantFetchData: data => dispatch(restaurantFetchData(data))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    marks: state.marksFetchReducer,
+    addMark: state.addMarkerReducer,
+    markOnClick: state.marksToggleReducer,
+    signInStatus: state.signInStatusReducer
+  };
+};
 
 MapBoxContainer.propTypes = {
   className: PropTypes.string
@@ -110,4 +150,7 @@ MapBoxContainer.defaultProps = {
   })
 };
 
-export default MapBoxContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MapBoxContainer);

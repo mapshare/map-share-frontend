@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { GoogleApiWrapper, InfoWindow } from "google-maps-react";
 
 import { marksFetchData } from "../../actions/marksActions";
 import { userLogout } from "../../actions/signInActions";
@@ -9,7 +8,7 @@ import { GoogleLogout } from "react-google-login";
 
 import "./MapContainer.scss";
 
-import CurrentLocation from "../CurrentLocation/CurrentLocation";
+import MapBoxContainer from "../MapBoxContainer/MapBoxContainer";
 import RestaurantDetails from "../RestaurantComponents/RestaurantDetails";
 
 export class MapContainer extends Component {
@@ -57,41 +56,26 @@ export class MapContainer extends Component {
     const { toggleMarks, signInStatus } = this.props;
 
     return (
-      <>
+      <div className="MapContainer">
         {console.log("RENDERING MAPCOMPONENT")}
-        <CurrentLocation
-          centerAroundCurrentLocation
-          google={this.props.google}
-          userData={this.props.getUserData}
-        >
-          <div className="box-btn-GoogleLogOut">
-            <GoogleLogout
-              buttonText="Logout"
-              onLogoutSuccess={this.logout}
-              className="btn-GoogleLogOut"
-            />
-            <div className="group-id">Group ID - {this.groupId}</div>
+        <MapBoxContainer />
+        <div className="box-btn-GoogleLogOut">
+          <GoogleLogout
+            buttonText="Logout"
+            onLogoutSuccess={this.logout}
+            className="btn-GoogleLogOut"
+          />
+          <div className="group-id">Group ID - {this.groupId}</div>
+        </div>
+
+        {toggleMarks.status ? (
+          <div className="detailsContainer container-fluid">
+            <RestaurantDetails />
           </div>
-
-          {toggleMarks.status ? (
-            <div className="detailsContainer container-fluid">
-              <RestaurantDetails />
-            </div>
-          ) : (
-            <div className="slideOut" />
-          )}
-
-          <InfoWindow
-            marker={toggleMarks.activeMarker}
-            visible={toggleMarks.showingInfoWindow}
-            onClose={this.onClose}
-          >
-            <div>
-              <h4>{toggleMarks.selectedPlace}</h4>
-            </div>
-          </InfoWindow>
-        </CurrentLocation>
-      </>
+        ) : (
+          <div className="slideOut" />
+        )}
+      </div>
     );
   }
 }
@@ -112,12 +96,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  GoogleApiWrapper({
-    apiKey: "AIzaSyCp4-ZdjyiJMktGIrh4KcBS7xUGPbis8gY"
-  })
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(MapContainer);
