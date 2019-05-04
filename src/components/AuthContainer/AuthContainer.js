@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { GoogleApiWrapper, InfoWindow } from "google-maps-react";
 import classnames from "classnames";
+import { connect } from "react-redux";
 
 import "./AuthContainer.scss";
 
@@ -15,6 +13,7 @@ import GroupLanding from "../GroupLanding/GroupLanding";
 class AuthContainer extends React.PureComponent {
   render() {
     const { signInStatus, getUserData } = this.props;
+
     return (
       <div className={classnames("AuthContainer", this.props.className)}>
         {signInStatus ? (
@@ -35,6 +34,13 @@ class AuthContainer extends React.PureComponent {
   }
 }
 
+AuthContainer.propTypes = {
+  className: PropTypes.string,
+  signInStatus: PropTypes.bool.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  signInSuccess: PropTypes.func.isRequired
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signInSuccess: bool => dispatch(signInSuccess(bool))
@@ -46,10 +52,6 @@ const mapStateToProps = state => {
     signInStatus: state.signInStatusReducer,
     getUserData: state.userFetchReducer
   };
-};
-
-AuthContainer.propTypes = {
-  className: PropTypes.string
 };
 
 export default connect(

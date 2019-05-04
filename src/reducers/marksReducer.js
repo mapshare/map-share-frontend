@@ -24,7 +24,7 @@ export const marksFetchReducer = (state = initMarkerState.marks, action) => {
 export const marksToggleReducer = (state = initToggleState.status, action) => {
   switch (action.type) {
     case "TOGGLE_MARKER":
-      return action;
+      return action.status;
     default:
       return state;
   }

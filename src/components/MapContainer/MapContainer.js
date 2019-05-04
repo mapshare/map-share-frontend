@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
+import { GoogleLogout } from "react-google-login";
 
 import { marksFetchData } from "../../actions/marksActions";
 import { userLogout } from "../../actions/signInActions";
-import { GoogleLogout } from "react-google-login";
 
 import "./MapContainer.scss";
 
@@ -15,13 +15,14 @@ import RestaurantDetails from "../RestaurantComponents/RestaurantDetails";
 class MapContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+    // get user last joined group
     this.groupId = this.props.getUserData.userGroups[
       this.props.getUserData.userGroups.length - 1
     ];
   }
 
   componentDidMount() {
-    console.log(this.props);
+    //fetch user's group id marks
     this.props.marksFetchData(
       "https://map-share-dev-api.herokuapp.com/api/marks?groupId=" +
         this.groupId
@@ -36,7 +37,7 @@ class MapContainer extends React.PureComponent {
     const { toggleMarks } = this.props;
 
     return (
-      <div className={classnames("MapBoxContainer", this.props.className)}>
+      <div className={classnames("MapContainer", this.props.className)}>
         <MapBoxContainer />
         <div className="box-btn-GoogleLogOut">
           <GoogleLogout
@@ -47,7 +48,7 @@ class MapContainer extends React.PureComponent {
           <div className="group-id">Group ID - {this.groupId}</div>
         </div>
 
-        {toggleMarks.status ? (
+        {toggleMarks ? (
           <div className="detailsContainer container-fluid">
             <RestaurantDetails />
           </div>

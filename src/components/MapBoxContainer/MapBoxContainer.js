@@ -16,9 +16,10 @@ import { MAP_BOX_TOKEN } from "../../data/constants";
 class MapBoxContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.map = null;
-    this.markerRefs = [];
     this.coordinates = null;
+    this.markerRefs = [];
   }
 
   componentDidMount() {
@@ -28,8 +29,8 @@ class MapBoxContainer extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // when new mark is added needs to reload the marks
     if (prevProps.marks !== this.props.marks) {
-      console.log("didupdate");
       this.loadMarker();
     }
   }
@@ -67,18 +68,25 @@ class MapBoxContainer extends React.PureComponent {
     });
     this.map.addControl(geolocate, "bottom-right");
 
+    // TO DO: avoid using timeout making it async with the map
     setTimeout(() => {
       geolocate.trigger();
+      // prevent layered onClick event to happen
+      geolocate._geolocateButton.addEventListener("click", e => {
+        e.stopPropagation();
+      });
     }, 1);
   };
 
   loadMarker = () => {
     this.props.marks.forEach((marker, index) => {
-      let lngLat = [
+      // set coordinates from marker object
+      const lngLat = [
         marker.geometry.coordinates[1],
         marker.geometry.coordinates[0]
       ];
 
+      // call mapbox marker api passing a dom element to create marker and adding it to the map
       new mapboxgl.Marker(this.markerRefs[index])
         .setLngLat(lngLat)
         .addTo(this.map);
@@ -86,14 +94,14 @@ class MapBoxContainer extends React.PureComponent {
   };
 
   onClickMarker = (marker, e) => {
+    // prevent layered onClick event to happen
     e.stopPropagation();
-    console.log("click on marker");
+    // passing the clicked marker data to get rendered
     this.props.restaurantFetchData(marker);
   };
 
   onClickMap = () => {
     this.props.addMarker(true);
-    console.log("click on map");
   };
 
   render() {
@@ -117,6 +125,13 @@ class MapBoxContainer extends React.PureComponent {
   }
 }
 
+MapBoxContainer.propTypes = {
+  className: PropTypes.string,
+  marks: PropTypes.array.isRequired,
+  addMarker: PropTypes.func.isRequired,
+  restaurantFetchData: PropTypes.func.isRequired
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addMarker: bool => dispatch(addMarker(bool)),
@@ -126,24 +141,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    marks: state.marksFetchReducer,
-    addMark: state.addMarkerReducer,
-    markOnClick: state.marksToggleReducer,
-    signInStatus: state.signInStatusReducer
+    marks: state.marksFetchReducer
   };
-};
-
-MapBoxContainer.propTypes = {
-  className: PropTypes.string
-};
-
-MapBoxContainer.defaultProps = {
-  geolocate: new mapboxgl.GeolocateControl({
-    positionOptions: {
-      enableHighAccuracy: true
-    },
-    trackUserLocation: true
-  })
 };
 
 export default connect(
