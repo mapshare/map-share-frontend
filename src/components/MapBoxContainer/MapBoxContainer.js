@@ -75,7 +75,7 @@ class MapBoxContainer extends React.PureComponent {
       geolocate._geolocateButton.addEventListener("click", e => {
         e.stopPropagation();
       });
-    }, 1);
+    }, 2000);
   };
 
   loadMarker = () => {

@@ -18,7 +18,7 @@ class AuthContainer extends React.PureComponent {
       <div className={classnames("AuthContainer", this.props.className)}>
         {signInStatus ? (
           getUserData.userGroups ? (
-            getUserData.userGroups && getUserData.userGroups.length != 0 ? (
+            getUserData.userGroups && getUserData.userGroups.length !== 0 ? (
               <MapContainer />
             ) : (
               <GroupLanding />
