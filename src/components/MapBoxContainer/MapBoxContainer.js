@@ -16,9 +16,11 @@ import { MAP_BOX_TOKEN } from "../../data/constants";
 class MapBoxContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      coordinates: {}
+    };
 
     this.map = null;
-    this.coordinates = null;
     this.markerRefs = [];
   }
 
@@ -52,10 +54,12 @@ class MapBoxContainer extends React.PureComponent {
 
     // add onClick event into the map when its initialize
     this.map.on("click", data => {
-      this.coordinates = {
-        lat: data.lngLat.lat,
-        lng: data.lngLat.lng
-      };
+      this.setState({
+        coordinates: {
+          lat: data.lngLat.lat,
+          lng: data.lngLat.lng
+        }
+      });
     });
   };
 
@@ -111,7 +115,7 @@ class MapBoxContainer extends React.PureComponent {
         ref={r => (this.mapBoxContainer = r)}
         onClick={this.onClickMap}
       >
-        <AddRestaurant position={this.coordinates} />
+        <AddRestaurant position={this.state.coordinates} />
         {this.props.marks.map((marker, index) => (
           <div
             className="marker"
