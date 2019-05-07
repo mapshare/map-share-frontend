@@ -8,8 +8,12 @@ import LocationForm from "../Forms/LocationForm/LocationForm";
 
 export class RestaurantDetails extends Component {
   handleClose = () => {
+    // e.stopPropagation();
+    this.modalRef.handleClick = e => {
+      e.stopPropagation();
+    };
     this.props.addMarker(false);
-    this.props.position.mark.setMap(null);
+    //this.props.position.mark.setMap(null);
   };
 
   // handleSave = values => {
@@ -41,12 +45,14 @@ export class RestaurantDetails extends Component {
 
   render() {
     const { addMark } = this.props;
+    console.log(this.props.position);
     return (
       <div>
         <Modal
           show={addMark.showModal}
           onHide={this.handleClose}
           dialogClassName="dialog"
+          ref={r => (this.modalRef = r)}
         >
           <Modal.Header closeButton>
             <Modal.Title>Add Location</Modal.Title>

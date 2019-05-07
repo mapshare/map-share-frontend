@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.scss";
 import AuthContainer from "./components/AuthContainer/AuthContainer";
 
-class App extends Component {
+class App extends React.PureComponent {
   render() {
     return (
       <div className="App">
