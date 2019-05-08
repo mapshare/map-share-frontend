@@ -53,7 +53,7 @@ class PutReview extends React.PureComponent {
 PutReview.propTypes = {
   className: PropTypes.string,
   locationId: PropTypes.string.isRequired,
-  reviewId: PropTypes.string.isRequired,
+  reviewId: PropTypes.number.isRequired,
   editReview: PropTypes.bool.isRequired,
   getUserData: PropTypes.object.isRequired,
   toggleEditReview: PropTypes.func.isRequired,
