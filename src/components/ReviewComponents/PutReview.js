@@ -1,12 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
+import { Modal } from "react-bootstrap";
 
 import "./PutReview.scss";
-import { Modal } from "react-bootstrap";
+
 import { toggleEditReview, putReview } from "../../actions/reviewActions";
 import ReviewForm from "../Forms/ReviewForm/ReviewForm";
 
-export class PutReview extends Component {
+class PutReview extends React.PureComponent {
   handleClose = () => {
     this.props.toggleEditReview(false);
   };
@@ -29,9 +32,9 @@ export class PutReview extends Component {
   render() {
     const { editReview } = this.props;
     return (
-      <div>
+      <div className={classnames("PutReview", this.props.className)}>
         <Modal
-          show={editReview.showModal}
+          show={editReview}
           onHide={this.handleClose}
           dialogClassName="dialog"
         >
@@ -46,6 +49,18 @@ export class PutReview extends Component {
     );
   }
 }
+
+PutReview.propTypes = {
+  className: PropTypes.string,
+  locationId: PropTypes.string.isRequired,
+  reviewId: PropTypes.string.isRequired,
+  editReview: PropTypes.bool.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  toggleEditReview: PropTypes.func.isRequired,
+  putReview: PropTypes.func.isRequired
+};
+
+PutReview.defaultProps = {};
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -22,7 +22,7 @@ export const editReviewReducer = (
 ) => {
   switch (action.type) {
     case "TOGGLE_EDIT_REVIEW":
-      return action;
+      return action.showModal;
     default:
       return state;
   }
