@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import moment from "moment";
 
@@ -14,10 +16,11 @@ import "./RestaurantDetails.scss";
 import PostReview from "../ReviewComponents/PostReview";
 import PutReview from "../ReviewComponents/PutReview";
 
-export class RestaurantDetails extends Component {
-  state = {
-    reviewId: ""
-  };
+class RestaurantDetails extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.reviewId = 0;
+  }
 
   componentWillMount() {
     this.props.reviewFetchData(this.props.getRestaurant.data.locationId);
@@ -39,18 +42,13 @@ export class RestaurantDetails extends Component {
 
   handleEditReview = review => {
     if (this.props.getUserData._id === review.reviewUser.userId) {
-      this.setState({
-        reviewId: review._id
-      });
-
+      this.reviewId = review._id;
       this.props.toggleEditReview(true);
-    } else {
-      console.log("current userID: ", this.props.getUserData._id);
-      console.log("not same userID: ", review.reviewUser.userId);
     }
   };
 
   getRatingSum = reviews => {
+    let rc = 0;
     if (reviews.length > 0) {
       const amount = item => {
         return item.reviewRating;
@@ -60,21 +58,20 @@ export class RestaurantDetails extends Component {
         return total + value;
       };
 
-      return reviews.map(amount).reduce(sum) / reviews.length;
-    } else {
-      return null;
+      rc = reviews.map(amount).reduce(sum) / reviews.length;
     }
+
+    return rc;
   };
 
   render() {
     const { getRestaurant, getReviews } = this.props;
     return (
-      <div>
-        {console.log("getReviews in Details", getReviews)}
+      <div className={classnames("RestaurantDetails", this.props.className)}>
         <PostReview locationId={getRestaurant.data.locationId} />
         <PutReview
           locationId={getRestaurant.data.locationId}
-          reviewId={this.state.reviewId}
+          reviewId={this.reviewId}
         />
         <div className="row">
           <div className="col-12 p-0">
@@ -171,6 +168,21 @@ export class RestaurantDetails extends Component {
     );
   }
 }
+
+RestaurantDetails.propTypes = {
+  className: PropTypes.string,
+  getRestaurant: PropTypes.object.isRequired,
+  getReviews: PropTypes.array.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  toggleMarker: PropTypes.func.isRequired,
+  toggleAddReview: PropTypes.func.isRequired,
+  toggleEditReview: PropTypes.func.isRequired,
+  ReviewFetchData: PropTypes.func.isRequired
+};
+
+RestaurantDetails.defaultProps = {
+  ReviewFetchData: () => {}
+};
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -1,29 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
+import { Modal } from "react-bootstrap";
 
 import "./AddRestaurant.scss";
-import { Modal } from "react-bootstrap";
+
 import { addMarker, saveMark } from "../../actions/marksActions";
+
 import LocationForm from "../Forms/LocationForm/LocationForm";
 
-export class RestaurantDetails extends Component {
+class AddRestaurant extends React.PureComponent {
   handleClose = () => {
-    // e.stopPropagation();
     this.modalRef.handleClick = e => {
       e.stopPropagation();
     };
     this.props.addMarker(false);
-    //this.props.position.mark.setMap(null);
   };
 
-  // handleSave = values => {
-  //   this.props.saveMark(this.props.position);
-  //   this.props.addMarker(false);
-
-  //   return alert(JSON.stringify(values, 0, 2));
-  // };
-
   handleSubmit = values => {
+    // retrieves the data from the form and call redux actions
     let getGroupId = this.props.getUserData.userGroups[
       this.props.getUserData.userGroups.length - 1
     ];
@@ -45,9 +41,8 @@ export class RestaurantDetails extends Component {
 
   render() {
     const { addMark } = this.props;
-    console.log(this.props.position);
     return (
-      <div>
+      <div className={classnames("AddRestaurant", this.props.className)}>
         <Modal
           show={addMark.showModal}
           onHide={this.handleClose}
@@ -66,6 +61,17 @@ export class RestaurantDetails extends Component {
   }
 }
 
+AddRestaurant.propTypes = {
+  className: PropTypes.string,
+  position: PropTypes.object.isRequired,
+  addMark: PropTypes.bool.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  saveMark: PropTypes.func.isRequired,
+  addMarker: PropTypes.func.isRequired
+};
+
+AddRestaurant.defaultProps = {};
+
 const mapDispatchToProps = dispatch => {
   return {
     saveMark: data => dispatch(saveMark(data)),
@@ -83,4 +89,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantDetails);
+)(AddRestaurant);

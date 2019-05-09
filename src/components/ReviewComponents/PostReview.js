@@ -1,22 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
+import { Modal } from "react-bootstrap";
 
 import "./PostReview.scss";
-import { Modal } from "react-bootstrap";
+
 import { toggleAddReview, postReview } from "../../actions/reviewActions";
 import ReviewForm from "../Forms/ReviewForm/ReviewForm";
 
-export class PostReview extends Component {
+class PostReview extends React.PureComponent {
   handleClose = () => {
     this.props.toggleAddReview(false);
   };
-
-  // handleSave = values => {
-  //   this.props.saveMark(this.props.position);
-  //   this.props.addMarker(false);
-
-  //   return alert(JSON.stringify(values, 0, 2));
-  // };
 
   handleSubmit = values => {
     let data = {
@@ -35,10 +31,11 @@ export class PostReview extends Component {
 
   render() {
     const { addReview } = this.props;
+
     return (
-      <div>
+      <div className={classnames("PostReview", this.props.className)}>
         <Modal
-          show={addReview.showModal}
+          show={addReview}
           onHide={this.handleClose}
           dialogClassName="dialog"
         >
@@ -53,6 +50,17 @@ export class PostReview extends Component {
     );
   }
 }
+
+PostReview.propTypes = {
+  className: PropTypes.string,
+  locationId: PropTypes.string.isRequired,
+  addReview: PropTypes.bool.isRequired,
+  getUserData: PropTypes.object.isRequired,
+  toggleAddReview: PropTypes.func.isRequired,
+  postReview: PropTypes.func.isRequired
+};
+
+PostReview.defaultProps = {};
 
 const mapDispatchToProps = dispatch => {
   return {
