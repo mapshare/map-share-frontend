@@ -15,6 +15,8 @@ const USER_FETCH_DATA_SUCCESS = 'USER_FETCH_DATA_SUCCESS';
 const ADD_GROUP ='ADD_GROUP';
 const JOIN_GROUP_ERROR = 'JOIN_GROUP_ERROR';
 
+const EDIT_REVIEW = 'EDIT_REVIEW';
+
 export default {
     //marksReducer.js
     MARKS_FETCH_DATA_SUCCESS,
@@ -35,5 +37,8 @@ export default {
     SIGN_IN_SUCCESS,
     USER_FETCH_DATA_SUCCESS,
     ADD_GROUP,
-    JOIN_GROUP_ERROR
+    JOIN_GROUP_ERROR,
+
+    //reviewActions.js
+    EDIT_REVIEW
 }

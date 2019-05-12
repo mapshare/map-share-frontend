@@ -1,4 +1,5 @@
 import axios from "axios";
+import keys from "../data/key";
 
 export const putReview = data => {
   return dispatch => {
@@ -38,7 +39,6 @@ export const reviewFetchData = data => {
         params: { locationId: data }
       })
       .then(resReviews => {
-        console.log(resReviews.data);
         dispatch(currentReviews(resReviews.data.restaurantReviews));
       })
       .catch(err => console.log("review get error: ", err));
@@ -47,35 +47,35 @@ export const reviewFetchData = data => {
 
 export const currentReviews = data => {
   return {
-    type: "REVIEWS_CONTENTS",
+    type: keys.REVIEWS_CONTENTS,
     data: data
   };
 };
 
 export const addReview = data => {
   return {
-    type: "ADD_REVIEW",
+    type: keys.ADD_REVIEW,
     data
   };
 };
 
 export const editReview = data => {
   return {
-    type: "EDIT_REVIEW",
+    type: keys.EDIT_REVIEW,
     data: data
   };
 };
 
 export const toggleAddReview = bool => {
   return {
-    type: "TOGGLE_ADD_REVIEW",
+    type: keys.TOGGLE_ADD_REVIEW,
     showModal: bool
   };
 };
 
 export const toggleEditReview = bool => {
   return {
-    type: "TOGGLE_EDIT_REVIEW",
+    type: keys.TOGGLE_EDIT_REVIEW,
     showModal: bool
   };
 };

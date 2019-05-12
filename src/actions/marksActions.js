@@ -1,36 +1,23 @@
 import axios from "axios";
+import keys from "../data/key";
 
 export const addMarker = bool => {
   return {
-    type: "ADD_MARKER",
+    type: keys.ADD_MARKER,
     showModal: bool
-  };
-};
-
-export const marksHasError = bool => {
-  return {
-    type: "MARKS_HAS_ERRORED",
-    hasErrored: bool
-  };
-};
-
-export const marksIsLoading = bool => {
-  return {
-    type: "MARKS_IS_LOADING",
-    isLoading: bool
   };
 };
 
 export const marksFetchDataSuccess = marks => {
   return {
-    type: "MARKS_FETCH_DATA_SUCCESS",
+    type: keys.MARKS_FETCH_DATA_SUCCESS,
     marks: marks
   };
 };
 
 export const markSaveDataSuccess = marks => {
   return {
-    type: "MARK_ADD_DATA_SUCCESS",
+    type: keys.MARK_ADD_DATA_SUCCESS,
     marks: marks
   };
 };
@@ -43,12 +30,6 @@ export const marksFetchData = url => {
   };
 };
 
-export const getUserData = data => {
-  // let url = 'https://map-share-dev-api.herokuapp.com/api/marks?groupId='
-  // return dispatch => {
-  // }
-};
-
 export const saveMark = data => {
   let restaurantData = {
     userId: data.userId,
@@ -58,8 +39,6 @@ export const saveMark = data => {
     priceRange: data.priceRange,
     geometry: data.geometry
   };
-
-  console.log("data format: ", data);
 
   return dispatch => {
     axios

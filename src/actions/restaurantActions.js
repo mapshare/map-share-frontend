@@ -1,4 +1,5 @@
 import axios from "axios";
+import keys from "../data/key"
 
 export const restaurantFetchData = data => {
   return dispatch => {
@@ -24,14 +25,14 @@ export const restaurantFetchData = data => {
 
 export const toggleMarker = bool => {
   return {
-    type: "TOGGLE_MARKER",
+    type: keys.TOGGLE_MARKER,
     status: bool
   };
 };
 
 export const currentRestaurant = data => {
   return {
-    type: "RESTAURANT_DETAILS",
+    type: keys.RESTAURANT_DETAILS,
     data: data
   };
 };
