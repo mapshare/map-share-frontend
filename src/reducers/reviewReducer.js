@@ -11,7 +11,7 @@ const initReviewState = {
 export const addReviewReducer = (state = initToggleState.showModal, action) => {
   switch (action.type) {
     case keys.TOGGLE_ADD_REVIEW:
-      return action;
+      return action.showModal;
     default:
       return state;
   }
@@ -23,7 +23,7 @@ export const editReviewReducer = (
 ) => {
   switch (action.type) {
     case keys.TOGGLE_EDIT_REVIEW:
-      return action;
+      return action.showModal;
     default:
       return state;
   }

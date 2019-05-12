@@ -55,7 +55,7 @@ export const currentReviews = data => {
 export const addReview = data => {
   return {
     type: "ADD_REVIEW",
-    data: data
+    data
   };
 };
 
