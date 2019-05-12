@@ -1,5 +1,6 @@
 import axios from "axios";
 import { marksFetchDataSuccess } from "./marksActions";
+import keys from "../data/key";
 
 export const userLogout = () => {
   return dispatch => {
@@ -11,14 +12,12 @@ export const userLogout = () => {
 
 export const signInSuccess = bool => {
   return {
-    type: "SIGN_IN_SUCCESS",
+    type: keys.SIGN_IN_SUCCESS,
     status: bool
   };
 };
 
 export const postUser = data => {
-  console.log(data);
-
   let userData = {
     userFirstName: data.ofa,
     userLastName: data.wea,
@@ -42,7 +41,7 @@ export const postUser = data => {
 
 export const userFetchDataSuccess = data => {
   return {
-    type: "USER_FETCH_DATA_SUCCESS",
+    type: keys.USER_FETCH_DATA_SUCCESS,
     data: data
   };
 };

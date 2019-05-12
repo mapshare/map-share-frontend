@@ -1,3 +1,5 @@
+import keys from '../data/key';
+
 const initToggleState = {
   showModal: false
 };
@@ -8,8 +10,7 @@ const initReviewState = {
 
 export const addReviewReducer = (state = initToggleState.showModal, action) => {
   switch (action.type) {
-    case "TOGGLE_ADD_REVIEW":
-      console.log(action);
+    case keys.TOGGLE_ADD_REVIEW:
       return action.showModal;
     default:
       return state;
@@ -21,7 +22,7 @@ export const editReviewReducer = (
   action
 ) => {
   switch (action.type) {
-    case "TOGGLE_EDIT_REVIEW":
+    case keys.TOGGLE_EDIT_REVIEW:
       return action.showModal;
     default:
       return state;
@@ -33,10 +34,9 @@ export const reviewsContentReducer = (
   action
 ) => {
   switch (action.type) {
-    case "REVIEWS_CONTENTS":
+    case keys.REVIEWS_CONTENTS:
       return action.data;
-    case "ADD_REVIEW":
-      console.log(state);
+    case keys.ADD_REVIEW:
       return state.concat(action.data);
     default:
       return state;

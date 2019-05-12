@@ -1,3 +1,5 @@
+import keys from '../data/key';
+
 const initToggleState = {
   status: false
 };
@@ -12,9 +14,9 @@ const initMarkerState = {
 
 export const marksFetchReducer = (state = initMarkerState.marks, action) => {
   switch (action.type) {
-    case "MARKS_FETCH_DATA_SUCCESS":
+    case keys.MARKS_FETCH_DATA_SUCCESS:
       return action.marks;
-    case "MARK_ADD_DATA_SUCCESS":
+    case keys.MARK_ADD_DATA_SUCCESS:
       return state.concat(action.marks);
     default:
       return state;
@@ -23,7 +25,7 @@ export const marksFetchReducer = (state = initMarkerState.marks, action) => {
 
 export const marksToggleReducer = (state = initToggleState.status, action) => {
   switch (action.type) {
-    case "TOGGLE_MARKER":
+    case keys.TOGGLE_MARKER:
       return action.status;
     default:
       return state;
@@ -32,7 +34,7 @@ export const marksToggleReducer = (state = initToggleState.status, action) => {
 
 export const addMarkerReducer = (state = initModalState.showModal, action) => {
   switch (action.type) {
-    case "ADD_MARKER":
+    case keys.ADD_MARKER:
       return action;
     default:
       return state;

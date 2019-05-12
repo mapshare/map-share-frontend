@@ -1,10 +1,12 @@
+import keys from '../data/key';
+
 const initSignInState = {
   status: false
 };
 
 export const signInStatusReducer = (state = initSignInState.status, action) => {
   switch (action.type) {
-    case "SIGN_IN_SUCCESS":
+    case keys.SIGN_IN_SUCCESS:
       return action.status;
     default:
       return state;
@@ -13,9 +15,9 @@ export const signInStatusReducer = (state = initSignInState.status, action) => {
 
 export const userFetchReducer = (state = {}, action) => {
   switch (action.type) {
-    case "USER_FETCH_DATA_SUCCESS":
+    case keys.USER_FETCH_DATA_SUCCESS:
       return action.data;
-    case "ADD_GROUP":
+    case keys.ADD_GROUP:
       return {...state, userGroups:state.userGroups.concat(action.data)};
     default:
       return state;
@@ -24,8 +26,7 @@ export const userFetchReducer = (state = {}, action) => {
 
 export const joinGroupErrorReducer = (state = "", action) => {
   switch (action.type) {
-    case "JOIN_GROUP_ERROR":
-      console.log('joingroup reducer')
+    case keys.JOIN_GROUP_ERROR:
       return action.data;
     default:
       return state;

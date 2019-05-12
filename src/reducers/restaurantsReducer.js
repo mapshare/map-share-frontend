@@ -1,6 +1,8 @@
+import keys from '../data/key';
+
 export const restaurantDetailReducer = (state = [], action) => {
   switch (action.type) {
-    case "RESTAURANT_DETAILS":
+    case keys.RESTAURANT_DETAILS:
       return action;
     default:
       return state;
