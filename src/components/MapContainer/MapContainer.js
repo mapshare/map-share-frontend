@@ -11,6 +11,7 @@ import "./MapContainer.scss";
 
 import MapBoxContainer from "../MapBoxContainer/MapBoxContainer";
 import RestaurantDetails from "../RestaurantComponents/RestaurantDetails";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 class MapContainer extends React.PureComponent {
   constructor(props) {
@@ -38,6 +39,7 @@ class MapContainer extends React.PureComponent {
 
     return (
       <div className={classnames("MapContainer", this.props.className)}>
+        <ModalWindow />
         <MapBoxContainer />
         <div className="box-btn-GoogleLogOut">
           <GoogleLogout
