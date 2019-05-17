@@ -20,7 +20,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
         return <h1>testing</h1>;
     }
   }
-  console.log(props.showModal);
+
   return (
     <div
       className={classnames("ModalWindow", props.className)}
@@ -49,6 +49,8 @@ ModalWindow.propTypes = {
   handleClose: PropTypes.func.isRequired
 };
 
-ModalWindow.defaultProps = {};
+ModalWindow.defaultProps = {
+  showModal: false
+};
 
 export default ModalWindow;
