@@ -4,13 +4,29 @@
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   z-index: 1;
-  display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1.5rem;
 
-  .modal-content {
+  .modal-container {
     width: 40rem;
     height: auto;
     background-color: white;
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .title {
+        text-transform: capitalize;
+      }
+
+      .close-button {
+        font-size: 2rem;
+        transform: rotate(45deg);
+        cursor: pointer;
+      }
+    }
   }
 }

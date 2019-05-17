@@ -1,4 +1,4 @@
-import keys from '../data/key';
+import keys from "../data/key";
 
 const initToggleState = {
   status: false
