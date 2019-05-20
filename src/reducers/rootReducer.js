@@ -9,7 +9,8 @@ import { restaurantDetailReducer } from "./restaurantsReducer";
 import {
   addReviewReducer,
   reviewsContentReducer,
-  editReviewReducer
+  editReviewReducer,
+  ReviewReducer
 } from "./reviewReducer";
 import {
   signInStatusReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
   addReviewReducer,
   editReviewReducer,
   reviewsContentReducer,
+  ReviewReducer,
   form: formReducer
 });
