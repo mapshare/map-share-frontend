@@ -201,7 +201,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     getRestaurant: state.restaurantDetailReducer,
-    getReviews: state.reviewsContentReducer,
+    getReviews: state.reviewerReducer.restaurantReviews,
     getUserData: state.userFetchReducer
   };
 };

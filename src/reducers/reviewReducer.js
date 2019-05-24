@@ -1,43 +1,34 @@
 import keys from '../data/key';
 
-const initToggleState = {
-  showModal: false
-};
-
-const initReviewState = {
+const INITIAL_STATE = {
+  showAddModal: false,
+  showEditModal: false,
+  showModal: false,
   restaurantReviews: []
 };
 
-export const addReviewReducer = (state = initToggleState.showModal, action) => {
+export const reviewerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case keys.TOGGLE_ADD_REVIEW:
-      return action.showModal;
-    default:
-      return state;
-  }
-};
-
-export const editReviewReducer = (
-  state = initToggleState.showModal,
-  action
-) => {
-  switch (action.type) {
+      return {
+        ...state,
+        showAddModal: action.showModal
+      }
     case keys.TOGGLE_EDIT_REVIEW:
-      return action.showModal;
-    default:
-      return state;
-  }
-};
-
-export const reviewsContentReducer = (
-  state = initReviewState.restaurantReviews,
-  action
-) => {
-  switch (action.type) {
+      return {
+        ...state,
+        showEditModal: action.showModal
+      }
     case keys.REVIEWS_CONTENTS:
-      return action.data;
+      return {
+        ...state,
+        restaurantReviews: action.data
+      }
     case keys.ADD_REVIEW:
-      return state.concat(action.data);
+      return {
+        ...state,
+        restaurantReviews: state.restaurantReviews.concat(action.data)
+      }
     default:
       return state;
   }

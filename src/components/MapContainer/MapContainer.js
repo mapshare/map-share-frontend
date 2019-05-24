@@ -79,7 +79,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    toggleMarks: state.marksToggleReducer,
+    toggleMarks: state.marksReducer.status,
     getUserData: state.userFetchReducer
   };
 };

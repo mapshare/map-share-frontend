@@ -145,7 +145,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    marks: state.marksFetchReducer
+    marks: state.marksReducer.marks
   };
 };
 
