@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 
 import "./ReviewForm.scss"
@@ -87,6 +88,11 @@ const ReviewForm = props => {
     </div>
   );
 };
+
+ReviewForm.propTypes = {
+  className: PropTypes.string,
+  setOptions: PropTypes.func
+}
 
 export default reduxForm({
   form: "reviewForm",
