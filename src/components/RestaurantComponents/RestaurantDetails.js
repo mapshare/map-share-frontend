@@ -19,7 +19,9 @@ import PutReview from "../ReviewComponents/PutReview";
 class RestaurantDetails extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.reviewId = 0;
+    this.state = {
+      reviewId: ""
+    };
   }
 
   componentWillMount() {
@@ -42,7 +44,10 @@ class RestaurantDetails extends React.PureComponent {
 
   handleEditReview = review => {
     if (this.props.getUserData._id === review.reviewUser.userId) {
-      this.reviewId = review._id;
+      this.setState({
+        reviewId: review._id
+      });
+
       this.props.toggleEditReview(true);
     }
   };
@@ -71,7 +76,7 @@ class RestaurantDetails extends React.PureComponent {
         <PostReview locationId={getRestaurant.data.locationId} />
         <PutReview
           locationId={getRestaurant.data.locationId}
-          reviewId={this.reviewId}
+          reviewId={this.state.reviewId}
         />
         <div className="row">
           <div className="col-12 p-0">
