@@ -5,7 +5,7 @@ import {
 } from "./marksReducer";
 import { restaurantDetailReducer } from "./restaurantsReducer";
 import {
-  reviewerReducer
+  ReviewReducer 
 } from "./reviewReducer";
 import {
   signInStatusReducer,
@@ -15,7 +15,7 @@ import {
 
 export default combineReducers({
   marksReducer,
-  reviewerReducer,
+  ReviewReducer,
   restaurantDetailReducer,
   signInStatusReducer,
   userFetchReducer,

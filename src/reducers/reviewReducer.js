@@ -1,13 +1,13 @@
 import keys from '../data/key';
 
-const INITIAL_STATE = {
+const INITIAL_REVIEW_STATE = {
   showAddModal: false,
   showEditModal: false,
   showModal: false,
   restaurantReviews: []
 };
 
-export const reviewerReducer = (state = INITIAL_STATE, action) => {
+export const ReviewReducer  = (state = INITIAL_REVIEW_STATE, action) => {
   switch (action.type) {
     case keys.TOGGLE_ADD_REVIEW:
       return {
@@ -29,6 +29,7 @@ export const reviewerReducer = (state = INITIAL_STATE, action) => {
         ...state,
         restaurantReviews: state.restaurantReviews.concat(action.data)
       }
+      
     default:
       return state;
   }
