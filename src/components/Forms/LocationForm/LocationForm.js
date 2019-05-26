@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import { reduxForm, Field } from "redux-form";
 
 import "./LocationForm.scss"
@@ -74,11 +75,11 @@ const renderRating = (input, setOptions) => {
   );
 };
 
-const LocationForm = props => {
+const LocationForm = React.forwardRef((props,ref) => {
   const { handleSubmit } = props;
 
   return (
-    <div>
+    <div className={classnames("LocationForm", props.className)}> 
       <form onSubmit={handleSubmit} className="form">
         <div className="field">
           <Field
@@ -134,11 +135,11 @@ const LocationForm = props => {
       </form>
     </div>
   );
-};
+});
 
 LocationForm.propTypes = {
   className: PropTypes.string,
-  setOptions: PropTypes.func
+  handleSubmit: PropTypes.func
 }
 
 export default reduxForm({
