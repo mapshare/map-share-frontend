@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 
 import "./LocationForm.scss"
@@ -134,6 +135,11 @@ const LocationForm = props => {
     </div>
   );
 };
+
+LocationForm.propTypes = {
+  className: PropTypes.string,
+  setOptions: PropTypes.func
+}
 
 export default reduxForm({
   form: "addLocation",
