@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    addMark: state.addMarkerReducer,
+    addMark: state.marksReducer.showModal,
     getUserData: state.userFetchReducer
   };
 };

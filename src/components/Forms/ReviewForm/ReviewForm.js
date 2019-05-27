@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
 import { reduxForm, Field } from "redux-form";
 
 import "./ReviewForm.scss"
@@ -53,11 +55,11 @@ const renderRating = (input, setOptions) => {
   );
 };
 
-const ReviewForm = props => {
+const ReviewForm = React.forwardRef((props, ref) => {
   const { handleSubmit } = props;
 
   return (
-    <div>
+    <div className={classnames("ReviewForm", props.className)}>
       <form onSubmit={handleSubmit} className="form">
         <div className="field-rating">
           <Field
@@ -86,7 +88,12 @@ const ReviewForm = props => {
       </form>
     </div>
   );
-};
+});
+
+ReviewForm.propTypes = {
+  className: PropTypes.string,
+  handleSubmit: PropTypes.func
+}
 
 export default reduxForm({
   form: "reviewForm",
