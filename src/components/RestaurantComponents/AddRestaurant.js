@@ -9,12 +9,14 @@ import "./AddRestaurant.scss";
 import { addMarker, saveMark } from "../../actions/marksActions";
 
 import LocationForm from "../Forms/LocationForm/LocationForm";
+// import ModalWindow from "../ModalWindow/ModalWindow";
 
 class AddRestaurant extends React.PureComponent {
-  handleClose = () => {
+  handleClose = event => {
     this.modalRef.handleClick = e => {
       e.stopPropagation();
     };
+    // event.stopPropagation();
     this.props.addMarker(false);
   };
 
@@ -43,6 +45,11 @@ class AddRestaurant extends React.PureComponent {
     const { addMark } = this.props;
     return (
       <div className={classnames("AddRestaurant", this.props.className)}>
+        {/* <ModalWindow
+          type="location"
+          showModal={addMark}
+          handleClose={event => this.handleClose(event)}
+        /> */}
         <Modal
           show={addMark.showModal}
           onHide={this.handleClose}

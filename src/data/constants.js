@@ -4,3 +4,5 @@ export const MAP_BOX_TOKEN =
 
 export const GOOGLE_LOGIN_TOKEN =
   "249486761636-7v9e2d4eopnh2hcedo5fa3uu0uqvg7t1.apps.googleusercontent.com";
+
+export const MODAL_WINDOW_TYPE = ["location", "review"];
