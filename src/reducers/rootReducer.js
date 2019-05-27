@@ -1,15 +1,11 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 import {
-  addMarkerReducer,
-  marksFetchReducer,
-  marksToggleReducer
+  marksReducer
 } from "./marksReducer";
 import { restaurantDetailReducer } from "./restaurantsReducer";
 import {
-  addReviewReducer,
-  reviewsContentReducer,
-  editReviewReducer
+  ReviewReducer 
 } from "./reviewReducer";
 import {
   signInStatusReducer,
@@ -18,15 +14,11 @@ import {
 } from "./signInReducer";
 
 export default combineReducers({
-  marksFetchReducer,
-  marksToggleReducer,
-  addMarkerReducer,
+  marksReducer,
+  ReviewReducer,
   restaurantDetailReducer,
   signInStatusReducer,
   userFetchReducer,
   joinGroupErrorReducer,
-  addReviewReducer,
-  editReviewReducer,
-  reviewsContentReducer,
   form: formReducer
 });
