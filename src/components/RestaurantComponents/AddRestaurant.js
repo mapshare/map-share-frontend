@@ -2,21 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { Modal } from "react-bootstrap";
 
 import "./AddRestaurant.scss";
 
 import { addMarker, saveMark } from "../../actions/marksActions";
 
-import LocationForm from "../Forms/LocationForm/LocationForm";
-// import ModalWindow from "../ModalWindow/ModalWindow";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 class AddRestaurant extends React.PureComponent {
   handleClose = event => {
-    this.modalRef.handleClick = e => {
-      e.stopPropagation();
-    };
-    // event.stopPropagation();
+    event.stopPropagation();
     this.props.addMarker(false);
   };
 
@@ -45,24 +40,12 @@ class AddRestaurant extends React.PureComponent {
     const { addMark } = this.props;
     return (
       <div className={classnames("AddRestaurant", this.props.className)}>
-        {/* <ModalWindow
-          type="location"
+        <ModalWindow
+          contentType="location"
           showModal={addMark}
           handleClose={event => this.handleClose(event)}
-        /> */}
-        <Modal
-          show={addMark.showModal}
-          onHide={this.handleClose}
-          dialogClassName="dialog"
-          ref={r => (this.modalRef = r)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Location</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <LocationForm onSubmit={this.handleSubmit} />
-          </Modal.Body>
-        </Modal>
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }

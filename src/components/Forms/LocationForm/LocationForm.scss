@@ -26,25 +26,27 @@
     display: flex;
     flex-direction: row-reverse;
     float: left;
-  }
 
-  input {
-    display: none;
-  }
+    .rating-content {
+      input {
+        display: none;
+      }
 
-  .stars:before {
-    margin: 0 5px;
-    font-size: 1.25em;
-    font-family: "Font Awesome 5 Free";
-    content: "\f005";
-  }
+      .stars:before {
+        margin: 0 5px;
+        font-size: 1.25em;
+        font-family: "Font Awesome 5 Free";
+        content: "\f005";
+      }
 
-  .stars {
-    color: #ddd;
-  }
+      .stars {
+        color: #ddd;
+      }
 
-  /* show gold star when clicked */
-  input:checked ~ .stars {
-    color: #ffd700;
+      /* show gold star when clicked */
+      input:checked ~ .stars {
+        color: #ffd700;
+      }
+    }
   }
 }

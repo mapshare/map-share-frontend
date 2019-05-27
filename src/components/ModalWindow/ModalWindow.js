@@ -13,9 +13,9 @@ const ModalWindow = React.forwardRef((props, ref) => {
   function content(type) {
     switch (type) {
       case "location":
-        return <LocationForm />;
+        return <LocationForm onSubmit={props.handleSubmit} />;
       case "review":
-        return <ReviewForm />;
+        return <ReviewForm onSubmit={props.handleSubmit} />;
       default:
         return <h1>testing</h1>;
     }
@@ -28,7 +28,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
     >
       <div className="modal-container">
         <div className="modal-header">
-          <div className="title">Add {props.type}</div>
+          <div className="title">Add {props.contentType}</div>
           <div
             className="close-button"
             onClick={event => props.handleClose(event)}
@@ -36,7 +36,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
             +
           </div>
         </div>
-        <div className="modal-content">{content(props.type)}</div>
+        <div className="modal-content">{content(props.contentType)}</div>
       </div>
     </div>
   );
@@ -44,9 +44,10 @@ const ModalWindow = React.forwardRef((props, ref) => {
 
 ModalWindow.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
+  contentType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
   showModal: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func
 };
 
 ModalWindow.defaultProps = {
