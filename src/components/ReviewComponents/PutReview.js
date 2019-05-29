@@ -7,7 +7,8 @@ import { Modal } from "react-bootstrap";
 import "./PutReview.scss";
 
 import { toggleEditReview, putReview } from "../../actions/reviewActions";
-import ReviewForm from "../Forms/ReviewForm/ReviewForm";
+
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 class PutReview extends React.PureComponent {
   handleClose = () => {
@@ -33,18 +34,12 @@ class PutReview extends React.PureComponent {
     const { editReview } = this.props;
     return (
       <div className={classnames("PutReview", this.props.className)}>
-        <Modal
-          show={editReview}
-          onHide={this.handleClose}
-          dialogClassName="dialog"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Review</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ReviewForm onSubmit={this.handleSubmit} />
-          </Modal.Body>
-        </Modal>
+        <ModalWindow
+          contentType="review"
+          showModal={editReview}
+          handleCloseByType={this.handleClose}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }

@@ -40,18 +40,6 @@ class PostReview extends React.PureComponent {
           handleCloseByType={this.handleClose}
           handleSubmit={this.handleSubmit}
         />
-        {/* <Modal
-          show={addReview}
-          onHide={this.handleClose}
-          dialogClassName="dialog"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Review</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ReviewForm onSubmit={this.handleSubmit} />
-          </Modal.Body>
-        </Modal> */}
       </div>
     );
   }

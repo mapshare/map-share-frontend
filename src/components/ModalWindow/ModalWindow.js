@@ -32,12 +32,14 @@ const ModalWindow = React.forwardRef((props, ref) => {
 
   return (
     <div
-      className={classnames("ModalWindow", props.className)}
+      className={classnames("ModalWindow", props.className, props.modalId)}
       style={{ display: `${props.showModal ? "flex" : "none"}` }}
     >
       <div className="modal-container">
         <div className="modal-header">
-          <div className="title">Add {props.contentType}</div>
+          <div className="title">
+            {props.modalIdentifier} {props.contentType}
+          </div>
           <div className="close-button" onClick={event => handleClose(event)}>
             +
           </div>
@@ -64,12 +66,13 @@ ModalWindow.propTypes = {
   className: PropTypes.string,
   contentType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
   showModal: PropTypes.bool.isRequired,
+  modalIdentifier: PropTypes.string,
   handleSubmit: PropTypes.func,
   handleCloseByType: PropTypes.func
 };
 
 ModalWindow.defaultProps = {
-  addMark: false
+  modalIdentifier: ""
 };
 
 export default connect(
