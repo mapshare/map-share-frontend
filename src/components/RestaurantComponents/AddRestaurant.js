@@ -40,7 +40,7 @@ class AddRestaurant extends React.PureComponent {
     return (
       <div className={classnames("AddRestaurant", this.props.className)}>
         <ModalWindow
-          contentType="location"
+          modalWindowType="location"
           showModal={addMark}
           handleCloseByType={this.handleClose}
           handleSubmit={this.handleSubmit}

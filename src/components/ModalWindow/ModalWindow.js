@@ -19,7 +19,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
       case "review":
         return <ReviewForm onSubmit={props.handleSubmit} />;
       default:
-        return <h1>testing</h1>;
+        return console.error("pass an existing modalWindowType");
     }
   }
 
@@ -32,7 +32,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
 
   return (
     <div
-      className={classnames("ModalWindow", props.className, props.modalId)}
+      className={classnames("ModalWindow", props.className)}
       style={{ display: `${props.showModal ? "flex" : "none"}` }}
     >
       <div className="modal-container">
@@ -44,7 +44,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
             +
           </div>
         </div>
-        <div className="modal-content">{content(props.contentType)}</div>
+        <div className="modal-content">{content(props.modalWindowType)}</div>
       </div>
     </div>
   );
@@ -64,16 +64,13 @@ const mapStateToProps = state => {
 
 ModalWindow.propTypes = {
   className: PropTypes.string,
-  contentType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
+  modalWindowType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
   showModal: PropTypes.bool.isRequired,
-  modalIdentifier: PropTypes.string,
   handleSubmit: PropTypes.func,
   handleCloseByType: PropTypes.func
 };
 
-ModalWindow.defaultProps = {
-  modalIdentifier: ""
-};
+ModalWindow.defaultProps = {};
 
 export default connect(
   mapStateToProps,

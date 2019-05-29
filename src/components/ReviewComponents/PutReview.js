@@ -35,7 +35,7 @@ class PutReview extends React.PureComponent {
     return (
       <div className={classnames("PutReview", this.props.className)}>
         <ModalWindow
-          contentType="review"
+          modalWindowType="review"
           showModal={editReview}
           handleCloseByType={this.handleClose}
           handleSubmit={this.handleSubmit}
