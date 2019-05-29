@@ -10,6 +10,10 @@ import { addMarker, saveMark } from "../../actions/marksActions";
 import ModalWindow from "../ModalWindow/ModalWindow";
 
 class AddRestaurant extends React.PureComponent {
+  handleClose = () => {
+    this.props.addMarker(false);
+  };
+
   handleSubmit = values => {
     // retrieves the data from the form and call redux actions
     let getGroupId = this.props.getUserData.userGroups[
@@ -38,7 +42,7 @@ class AddRestaurant extends React.PureComponent {
         <ModalWindow
           contentType="location"
           showModal={addMark}
-          handleClose={event => this.handleClose(event)}
+          handleCloseByType={this.handleClose}
           handleSubmit={this.handleSubmit}
         />
       </div>

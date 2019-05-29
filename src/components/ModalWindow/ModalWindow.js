@@ -8,7 +8,6 @@ import "./ModalWindow.scss";
 
 import LocationForm from "../Forms/LocationForm/LocationForm";
 import ReviewForm from "../Forms/ReviewForm/ReviewForm";
-import { addMarker } from "../../actions/marksActions";
 
 import { MODAL_WINDOW_TYPE } from "../../data/constants";
 
@@ -25,15 +24,16 @@ const ModalWindow = React.forwardRef((props, ref) => {
   }
 
   function handleClose(event) {
-    props.reset("addLocationForm");
+    const currentForm = Object.keys(props.forms)[0];
+    props.reset(currentForm);
     event.stopPropagation();
-    props.addMarker(false);
+    props.handleCloseByType();
   }
 
   return (
     <div
       className={classnames("ModalWindow", props.className)}
-      style={{ display: `${props.addMark ? "flex" : "none"}` }}
+      style={{ display: `${props.showModal ? "flex" : "none"}` }}
     >
       <div className="modal-container">
         <div className="modal-header">
@@ -50,14 +50,12 @@ const ModalWindow = React.forwardRef((props, ref) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMarker: bool => dispatch(addMarker(bool)),
     reset: form => dispatch(reset(form))
   };
 };
 
 const mapStateToProps = state => {
   return {
-    addMark: state.marksReducer.showModal,
     forms: state.form
   };
 };
@@ -65,8 +63,9 @@ const mapStateToProps = state => {
 ModalWindow.propTypes = {
   className: PropTypes.string,
   contentType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
-  addMark: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func
+  showModal: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func,
+  handleCloseByType: PropTypes.func
 };
 
 ModalWindow.defaultProps = {

@@ -1,13 +1,24 @@
 @import url("https://use.fontawesome.com/releases/v5.7.2/css/solid.css");
 
+.RestaurantDetails {
+  width: 25%;
+  height: 100%;
+  position: absolute;
+  background-color: whitesmoke;
+  word-wrap: break-word;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.332),
+    0 6px 20px 0 rgba(0, 0, 0, 0.245);
+  overflow-y: scroll;
+}
+
 @media only screen and (min-width: 700px) and (max-width: 1400px) {
-  .detailsContainer {
+  .RestaurantDetails {
     width: 40%;
   }
 }
 
 @media only screen and (min-width: 0px) and (max-width: 700px) {
-  .detailsContainer {
+  .RestaurantDetails {
     width: 100%;
   }
 }
