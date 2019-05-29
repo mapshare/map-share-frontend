@@ -37,9 +37,7 @@ const ModalWindow = React.forwardRef((props, ref) => {
     >
       <div className="modal-container">
         <div className="modal-header">
-          <div className="title">
-            {props.modalIdentifier} {props.contentType}
-          </div>
+          <div className="title">{props.modalWindowType}</div>
           <div className="close-button" onClick={event => handleClose(event)}>
             +
           </div>

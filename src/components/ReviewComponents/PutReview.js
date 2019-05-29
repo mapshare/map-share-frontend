@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { Modal } from "react-bootstrap";
 
 import "./PutReview.scss";
 
