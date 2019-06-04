@@ -202,7 +202,7 @@ const mapStateToProps = state => {
   return {
     getRestaurant: state.restaurantDetailReducer,
     getReviews: state.ReviewReducer.restaurantReviews,
-    getUserData: state.userFetchReducer
+    getUserData: state.signInReducer.userData
   };
 };
 

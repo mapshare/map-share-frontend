@@ -1,34 +1,23 @@
-import keys from '../data/key';
+import keys from "../data/key";
 
-const initSignInState = {
-  status: false
+const INITIAL_SIGN_IN_STATE = {
+  status: false,
+  userData: {},
+  userGroups: [],
+  groupError: ""
 };
 
-export const signInStatusReducer = (state = initSignInState.status, action) => {
+export const signInReducer = (state = INITIAL_SIGN_IN_STATE, action) => {
   switch (action.type) {
     case keys.SIGN_IN_SUCCESS:
-      return action.status;
-    default:
-      return state;
-  }
-};
-
-export const userFetchReducer = (state = {}, action) => {
-  switch (action.type) {
+      return { ...state, status: action.status };
     case keys.USER_FETCH_DATA_SUCCESS:
-      return action.data;
-    case keys.ADD_GROUP:
-      return {...state, userGroups:state.userGroups.concat(action.data)};
+      return { ...state, userData: action.data };
+    case keys.ADD_GROUP: // this action call is for switching group for feature implmentation
+      return { ...state, userGroups: state.userGroups.concat(action.data) };
+    case keys.JOIN_GROUP_ERROR:
+      return { ...state, groupError: action.data };
     default:
       return state;
   }
 };
-
-export const joinGroupErrorReducer = (state = "", action) => {
-  switch (action.type) {
-    case keys.JOIN_GROUP_ERROR:
-      return action.data;
-    default:
-      return state;
-  }
-} 

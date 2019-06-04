@@ -89,7 +89,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     addMark: state.marksReducer.showModal,
-    getUserData: state.userFetchReducer
+    getUserData: state.signInReducer.userData
   };
 };
 

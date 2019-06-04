@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import "./AuthContainer.scss";
 
 import { signInSuccess } from "../../actions/signInActions";
+
 import SignInForm from "../SignInForm/SignInForm";
 import MapContainer from "../MapContainer/MapContainer";
 import GroupLanding from "../GroupLanding/GroupLanding";
@@ -16,6 +17,7 @@ class AuthContainer extends React.PureComponent {
 
     return (
       <div className={classnames("AuthContainer", this.props.className)}>
+        {console.log(getUserData)}
         {signInStatus ? (
           getUserData.userGroups ? (
             getUserData.userGroups && getUserData.userGroups.length !== 0 ? (
@@ -49,8 +51,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    signInStatus: state.signInStatusReducer,
-    getUserData: state.userFetchReducer
+    signInStatus: state.signInReducer.status,
+    getUserData: state.signInReducer.userData
   };
 };
 
