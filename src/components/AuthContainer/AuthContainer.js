@@ -17,7 +17,6 @@ class AuthContainer extends React.PureComponent {
 
     return (
       <div className={classnames("AuthContainer", this.props.className)}>
-        {console.log(getUserData)}
         {signInStatus ? (
           getUserData.userGroups ? (
             getUserData.userGroups && getUserData.userGroups.length !== 0 ? (
