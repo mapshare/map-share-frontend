@@ -3,19 +3,6 @@
   height: 100%;
   position: relative;
 
-  .detailsContainer {
-    position: absolute;
-    width: 25%;
-    height: 100%;
-    background-color: whitesmoke;
-    word-wrap: break-word;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.332),
-      0 6px 20px 0 rgba(0, 0, 0, 0.245);
-    transform: translateX(0);
-    transition: transform 300ms ease-in;
-    overflow-y: scroll;
-  }
-
   .slideOut {
     transform: translateX(-220px);
   }

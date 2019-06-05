@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import { connect } from "react-redux";
+import { reset } from "redux-form";
 
 import "./ModalWindow.scss";
 
@@ -13,12 +15,19 @@ const ModalWindow = React.forwardRef((props, ref) => {
   function content(type) {
     switch (type) {
       case "location":
-        return <LocationForm />;
+        return <LocationForm onSubmit={props.handleSubmit} />;
       case "review":
-        return <ReviewForm />;
+        return <ReviewForm onSubmit={props.handleSubmit} />;
       default:
-        return <h1>testing</h1>;
+        return console.error("pass an existing modalWindowType");
     }
+  }
+
+  function handleClose(event) {
+    const currentForm = Object.keys(props.forms)[0];
+    props.reset(currentForm);
+    event.stopPropagation();
+    props.handleCloseByType();
   }
 
   return (
@@ -28,29 +37,40 @@ const ModalWindow = React.forwardRef((props, ref) => {
     >
       <div className="modal-container">
         <div className="modal-header">
-          <div className="title">Add {props.type}</div>
-          <div
-            className="close-button"
-            onClick={event => props.handleClose(event)}
-          >
+          <div className="title">{props.modalWindowType}</div>
+          <div className="close-button" onClick={event => handleClose(event)}>
             +
           </div>
         </div>
-        <div className="modal-content">{content(props.type)}</div>
+        <div className="modal-content">{content(props.modalWindowType)}</div>
       </div>
     </div>
   );
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    reset: form => dispatch(reset(form))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    forms: state.form
+  };
+};
+
 ModalWindow.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
+  modalWindowType: PropTypes.oneOf(MODAL_WINDOW_TYPE).isRequired,
   showModal: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func,
+  handleCloseByType: PropTypes.func
 };
 
-ModalWindow.defaultProps = {
-  showModal: false
-};
+ModalWindow.defaultProps = {};
 
-export default ModalWindow;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalWindow);

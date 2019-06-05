@@ -48,13 +48,7 @@ class MapContainer extends React.PureComponent {
           <div className="group-id">Group ID - {this.groupId}</div>
         </div>
 
-        {toggleMarks ? (
-          <div className="detailsContainer container-fluid">
-            <RestaurantDetails />
-          </div>
-        ) : (
-          <div className="slideOut" />
-        )}
+        {toggleMarks ? <RestaurantDetails /> : <div className="slideOut" />}
       </div>
     );
   }

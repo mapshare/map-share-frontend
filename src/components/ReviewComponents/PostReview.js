@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { Modal } from "react-bootstrap";
 
 import "./PostReview.scss";
 
 import { toggleAddReview, postReview } from "../../actions/reviewActions";
-import ReviewForm from "../Forms/ReviewForm/ReviewForm";
+
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 class PostReview extends React.PureComponent {
   handleClose = () => {
@@ -34,18 +34,12 @@ class PostReview extends React.PureComponent {
 
     return (
       <div className={classnames("PostReview", this.props.className)}>
-        <Modal
-          show={addReview}
-          onHide={this.handleClose}
-          dialogClassName="dialog"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Review</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ReviewForm onSubmit={this.handleSubmit} />
-          </Modal.Body>
-        </Modal>
+        <ModalWindow
+          modalWindowType="review"
+          showModal={addReview}
+          handleCloseByType={this.handleClose}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }
