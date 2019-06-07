@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     editReview: state.ReviewReducer.showEditModal,
-    getUserData: state.userFetchReducer
+    getUserData: state.signInReducer.userData
   };
 };
 
