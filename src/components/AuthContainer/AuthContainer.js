@@ -9,6 +9,7 @@ import { signInSuccess } from "../../actions/signInActions";
 
 import SignInForm from "../SignInForm/SignInForm";
 import MapContainer from "../MapContainer/MapContainer";
+import TempGroupLanding from "../TempGroupLanding/TempGroupLanding";
 import GroupLanding from "../GroupLanding/GroupLanding";
 
 class AuthContainer extends React.PureComponent {
@@ -22,7 +23,8 @@ class AuthContainer extends React.PureComponent {
             getUserData.userGroups && getUserData.userGroups.length !== 0 ? (
               <MapContainer />
             ) : (
-              <GroupLanding />
+              <TempGroupLanding />
+              // <GroupLanding/>
             )
           ) : (
             <div className="loading">Loading User</div>
