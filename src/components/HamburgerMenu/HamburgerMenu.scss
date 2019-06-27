@@ -1,0 +1,54 @@
+.HamburgerMenu {
+    background-color: white;
+
+    .menuContainer {
+        cursor: pointer;
+
+        .line {
+            height: 2px;
+            width: 30px;
+            background-color: black;
+            margin: .4rem 1rem;
+        }
+    }
+
+    .menuListContainer {
+        display: grid;
+        padding: .5rem;
+        grid-template-columns:auto 2.5rem;
+
+        .title {
+            font-weight: bold;
+        }
+
+        .closeButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: .4rem;
+            cursor: pointer;
+
+            .closeButtonline {
+                position: absolute;
+                height: 2px;
+                width: 20px;
+                background-color: black;
+            }
+
+            .closeButtonline:nth-child(1) {
+                transform: rotate(45deg);
+            }
+
+            .closeButtonline:nth-child(2) {
+                transform: rotate(-45deg);
+            }
+        }
+
+        .group-id {
+            background-color: white;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

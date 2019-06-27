@@ -11,6 +11,7 @@ import "./MapContainer.scss";
 
 import MapBoxContainer from "../MapBoxContainer/MapBoxContainer";
 import RestaurantDetails from "../RestaurantComponents/RestaurantDetails";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 
 class MapContainer extends React.PureComponent {
   constructor(props) {
@@ -40,12 +41,13 @@ class MapContainer extends React.PureComponent {
       <div className={classnames("MapContainer", this.props.className)}>
         <MapBoxContainer />
         <div className="box-btn-GoogleLogOut">
-          <GoogleLogout
+          <HamburgerMenu groupId={this.groupId}/>
+          {/* <GoogleLogout
             buttonText="Logout"
             onLogoutSuccess={this.logout}
             className="btn-GoogleLogOut"
           />
-          <div className="group-id">Group ID - {this.groupId}</div>
+          <div className="group-id">Group ID - {this.groupId}</div> */}
         </div>
 
         {toggleMarks ? <RestaurantDetails /> : <div className="slideOut" />}

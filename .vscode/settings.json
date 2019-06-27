@@ -1,0 +1,11 @@
+{
+    "materialTheme.autoApplyIcons": true,
+    "workbench.iconTheme": "eq-material-theme-icons-darker",
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "[javascript]": {
+        
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.tabCompletion": true,
+    "emmet.triggerExpansionOnTab": true
+}
